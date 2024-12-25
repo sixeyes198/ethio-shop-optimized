@@ -7,6 +7,7 @@ const Navbar = ({userInfo}) => {
 
   const navigate = useNavigate();
   
+  //Logout takes you to the login screen **Change it to home afterwards
   const onLogout = ()=>{
     localStorage.clear();
     navigate("/login")

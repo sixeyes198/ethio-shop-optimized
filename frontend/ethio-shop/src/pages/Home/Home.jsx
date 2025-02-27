@@ -19,7 +19,7 @@ const Home = () => {
             alt="women working in field"
             className="object-cover h-full w-fit"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-black">
+          <div className="absolute inset-0 flex flex-col items-center justify-center  bg-black/50">
             <h1 className="text-4xl md:text-5xl font-semibold  text-white text-center px-4">
               EthioFlavors
             </h1>

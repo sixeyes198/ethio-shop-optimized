@@ -3,6 +3,8 @@ import { validateEmail } from "../../utils/helper";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import img5 from "../../assets/images/img5.jpg"
+
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
@@ -37,44 +39,54 @@ const SignUp = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center mt-28">
-        <div className="w-96 border rounded bg-white px-7 py-10">
-          <form onSubmit={handleSignUp}>
-            <h4 className="text-2xl mb-7">SignUp</h4>
+      <div className="relative h-screen w-full">
+        <img
+          src={img5}
+          alt="background"
+          className="absolute inset-0 w-full h-full object-cover brightness-50"
+        />
 
-            <input
-              type="text"
-              placeholder="Name"
-              className="input-box"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
+        {/* Sign Up Form */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-96 border rounded-lg bg-white px-7 py-10 shadow-lg">
+            <form onSubmit={handleSignUp}>
+              <h4 className="text-2xl mb-7 text-center">Sign Up</h4>
 
-            <input
-              type="text"
-              placeholder="Email"
-              className="input-box"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+              <input
+                type="text"
+                placeholder="Name"
+                className="input-box"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
 
-            <PasswordInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <input
+                type="text"
+                placeholder="Email"
+                className="input-box"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-            {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-            <button type="submit" className="btn-primary">
-              Create Account
-            </button>
-            <p className="text-sm text-center mt-4">
-              Already have an account?{" "}
-              <Link to="/login" className="font-medium text-primary underline">
-                Login
-              </Link>
-            </p>
-          </form>
+              {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
+
+              <button type="submit" className="btn-primary w-full">
+                Create Account
+              </button>
+
+              <p className="text-sm text-center mt-4">
+                Already have an account?{" "}
+                <Link to="/login" className="font-medium text-primary underline hover:text-amber-700">
+                  Login
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </>

@@ -23,7 +23,7 @@ const Navbar = ({ userInfo }) => {
 
   return (
     <>
-      <div className="bg-amber-300 flex items-center justify-between px-6 py-2 drop-shadow">
+      <div className="bg-amber-300 flex items-center justify-between px-6 py-2 ">
         <div
           className="hidden max-lg:block cursor-pointer"
           onClick={toggleMenu}

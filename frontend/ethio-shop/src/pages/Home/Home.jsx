@@ -2,10 +2,9 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import img5 from "../../assets/images/img5.jpg";
 import logo from "../../assets/images/logo.png";
-import {VscCheck} from "react-icons/vsc";
+import { VscCheck } from "react-icons/vsc";
 import Contact from "../Contact/Contact";
-
-
+import Cart from "../Cart/Cart";
 
 const Home = () => {
   return (
@@ -29,6 +28,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* CART */}
+      <Cart/>
 
       {/* About */}
       <section id="about-us" className="mt-48  ">
@@ -70,15 +71,21 @@ const Home = () => {
                   </li>
                   <li className="flex items-center text-lg">
                     <VscCheck className="text-green-500 mr-2" />
-                    <span className="text-primary">Direct imports from Ethiopia</span>
+                    <span className="text-primary">
+                      Direct imports from Ethiopia
+                    </span>
                   </li>
                   <li className="flex items-center text-lg">
                     <VscCheck className="text-green-500 mr-2" />
-                    <span className="text-primary">Environmentally friendly practices</span>
+                    <span className="text-primary">
+                      Environmentally friendly practices
+                    </span>
                   </li>
                   <li className="flex items-center text-lg">
                     <VscCheck className="text-green-500 mr-2" />
-                    <span className="text-primary">Exceptional customer service</span>
+                    <span className="text-primary">
+                      Exceptional customer service
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -86,7 +93,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    <Contact />
+      <Contact />
     </>
   );
 };

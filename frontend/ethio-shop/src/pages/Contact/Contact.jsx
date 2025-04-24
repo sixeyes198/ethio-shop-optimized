@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
     message: "",
   });
@@ -16,7 +17,7 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventdefault();
+    e.preventDefault();
     try {
       const response = await fetch("http://TOChangeLater/contact", {
         method: "POST",
@@ -27,7 +28,7 @@ const Contact = () => {
       if (!response.ok) {
         return Error("Failed to send message");
       }
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", phone: "", email: "", message: "" });
     } catch (error) {
       return error;
     }
@@ -63,6 +64,25 @@ const Contact = () => {
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="Your Name"
               />
+            </div>
+            {/* Phone input */}
+            < div className="mb-4">
+            <label 
+            htmlFor="Phone Number"
+            className=" block text-lg font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input
+            type="tel" 
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            pattern="[0-9]{10}"
+            required
+            className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="Your Phone Number"
+            />
             </div>
             {/* email input */}
             <div className="mb-4">
@@ -105,7 +125,7 @@ const Contact = () => {
             {/* submit button */}
             <button
               type="submit"
-              className="w-full py-3 bg-sky-500 text-white font-semibold rounded-lg border border-blue-700 hover:bg-blue-600 hover:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full py-3 bg-gray-600 text-white font-semibold rounded-lg border border-amber-400 hover:bg-amber-600 hover:border-amber-900 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               Send Message
             </button>

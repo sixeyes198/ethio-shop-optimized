@@ -10,14 +10,14 @@ const Cart = () => {
       name: "Running Shoes",
       image: "https://via.placeholder.com/100",
       price: 89.99,
-      quantity: 1,
+      quantity: 0,
     },
     {
       id: 2,
       name: "Wireless Earbuds",
       image: "https://via.placeholder.com/100",
       price: 49.99,
-      quantity: 2,
+      quantity: 0,
     },
   ]);
 

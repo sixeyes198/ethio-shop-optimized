@@ -1,25 +1,30 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Running Shoes",
-      image: "https://via.placeholder.com/100",
-      price: 89.99,
-      quantity: 0,
-    },
-    {
-      id: 2,
-      name: "Wireless Earbuds",
-      image: "https://via.placeholder.com/100",
-      price: 49.99,
-      quantity: 0,
-    },
+  
   ]);
+
+useEffect(()=>{
+  const  savedProducts = localStorage.getItem("products");
+  try {
+    if(savedProducts){
+      const parsedProducts = JSON.parse(savedProducts);
+      if(Array.isArray(parsedProducts)){
+        const productsWithQuantity = parsedProducts.map((product) => ({
+          ...product,
+          quantity: product.quantity || 0,
+        }));
+        setCartItems(productsWithQuantity);
+      }
+    }
+  } catch (error) {
+    console.error("Error loading products into cart:", error)
+  }
+},[])
 
   const handleQuantityChange = (id, newQuantity) => {
     const updatedItems = cartItems.map((item) =>
@@ -46,7 +51,7 @@ const Cart = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-4xl mt-10 mb-8 font-semibold px-4 text-amber-500">Shopping Cart</h2>
+      <h2 className="text-4xl mt-10 mb-8 font-semibold px-4 text-amber-500"> Products In Stock </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Product List */}
         <div className="md:col-span-2 space-y-6">

@@ -12,22 +12,34 @@ const Admin = () => {
   const [editingId, setEditingId] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
 
-// useEffect(()=>{
-//     const savedProducts = localStorage.getItem("products")
-//     try{
-//         if(savedProducts){
-//             const parsedProducts = JSON.parse(savedProducts)
-//             if(Array.isArray(parsedProducts)){
-//                 setProducts(parsedProducts)
-//             }else{
-//                 console.error("products in storage")
-//             }
-//         }
-//     }catch(error){
-//         console.error("error parsing products from localstorage");
+  // Saving to localstorage 
+useEffect(()=>{
+    const savedProducts = localStorage.getItem("products")
+    try{
+        if(savedProducts){
+            const parsedProducts = JSON.parse(savedProducts)
+            if(Array.isArray(parsedProducts)){
+                setProducts(parsedProducts)
+            }else{
+                console.error("products in storage")
+            }
+        }
+    }catch(error){
+        console.error("error parsing products from localstorage");
         
-//     }
-// },[]);
+    }
+},[]);
+
+useEffect(()=>{
+    if(products.length > 0){
+        localStorage.setItem("products",JSON.stringify(products));
+    }else{
+        localStorage.removeItem("products");
+    }
+},[products]);
+
+
+
 
   const handleAddProduct = () => {
     setProducts([...products, { ...newProduct, id: Date.now() }]);

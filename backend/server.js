@@ -149,6 +149,12 @@ app.use("/contact", ContactRoute);
 app.use("/api/payments", paymentsRoutes);
 app.use("/api/products", productRoutes);
 
+app.use(express.static(path.join(__dirname, "../frontend/ethio-shop/dist")));
+
+app.get("*",(req,res)=>{
+  res.sendFile(path.resolve(__dirname,"../frontend/ethio-shop","dist", "index.html"))
+})
+
 app.listen(5000, () => {
   console.log(`Server is running ${5000}`);
 });

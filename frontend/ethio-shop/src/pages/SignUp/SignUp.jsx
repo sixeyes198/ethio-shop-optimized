@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { validateEmail } from "../../utils/helper";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import img5 from "../../assets/images/img5.jpg"
-
+import img5 from "../../assets/images/img5.jpg";
+import axiosInstance from "../../utils/axiosInstance";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
@@ -34,6 +34,30 @@ const SignUp = () => {
     setError("");
 
     //SignUp API call
+    try {
+      const response = await axiosInstance.post("/Signup", {
+        fullName: fullName,
+        email: email,
+        password: password,
+      });
+
+      console.log("Server response", response.data);
+
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/");
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
   };
 
   return (
@@ -81,7 +105,10 @@ const SignUp = () => {
 
               <p className="text-sm text-center mt-4">
                 Already have an account?{" "}
-                <Link to="/login" className="font-medium text-primary underline hover:text-amber-700">
+                <Link
+                  to="/login"
+                  className="font-medium text-primary underline hover:text-amber-700"
+                >
                   Login
                 </Link>
               </p>

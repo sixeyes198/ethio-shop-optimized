@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileInfo from "../Profile/ProfileInfo";
 import { useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -8,10 +7,9 @@ import { useState } from "react";
 const Navbar = ({ userInfo }) => {
   const navigate = useNavigate();
 
-  //Logout takes you to the login screen **Change it to home afterwards
   const onLogout = () => {
     localStorage.clear();
-    navigate("/dashboard");
+    navigate("/login");
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,24 +28,50 @@ const Navbar = ({ userInfo }) => {
         >
           <RxHamburgerMenu className="text-sm" />
         </div>
-        <h2 className="text-xl font-medium text-black py-2 ml-auto">Ethio</h2>
+        <h2 className="text-xl font-medium text-black py-2 ml-4">Ethio</h2>
         {userInfo && <ProfileInfo userInfo={userInfo} onLogout={onLogout} />}
       </div>
 
       {/*Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed top-0 left-0 bottom-0 z-50 w-60 bg-yellow-200 bg-opacity-95">
+        <div className="fixed top-0 left-0 bottom-0 z-50 w-96 bg-yellow-200 bg-opacity-95 flex flex-col items-center">
           <div
             className="hidden max-lg:block cursor-pointer fixed left-0 px-8 py-4"
             onClick={() => setIsMenuOpen(false)}
           >
-            <AiOutlineClose className="text-sm" />
+            <AiOutlineClose className="text-sm hover:text-amber-600" />
           </div>
           {/* Add NavBar Links Here */}
+          <a
+            href="#home"
+            onClick={() => setIsMenuOpen(false)}
+            className="block text-xl font-semibold text-black hover:text-amber-600 transition py-2"
+          >
+            Home
+          </a>
+          <a
+            href="#about-us"
+            onClick={() => setIsMenuOpen(false)}
+            className="block text-xl font-semibold text-black hover:text-amber-600 transition py-2"
+          >
+            About
+          </a>
+          <a
+            href="#Shopping-Cart"
+            onClick={() => setIsMenuOpen(false)}
+            className=" block text-xl font-semibold text-black hover:text-amber-600 transition py-2"
+          >
+            Shopping Cart
+          </a>
+
+          <a
+            href="#contact-us"
+            onClick={() => setIsMenuOpen(false)}
+            className="block text-xl font-semibold text-black hover:text-amber-600 transition py-2"
+          >
+            Contact
+          </a>
           {/* <h2 className="text-xl font-medium text-black py-2">Ethio</h2> */}
-
-          {/* Maybe change the location of the User Profile Info */}
-
           {/* {userInfo && <ProfileInfo userInfo={userInfo} onLogout={onLogout} />} */}
         </div>
       )}

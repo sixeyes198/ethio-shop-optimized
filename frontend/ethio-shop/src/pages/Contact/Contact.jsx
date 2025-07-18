@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiSend } from "react-icons/fi";
+import { FiSend, FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 const Contact = () => {
+  const [formStatus, setFormStatus] = useState({ success: null, message: "" });
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -21,6 +23,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Change the fetch URL **
       const response = await fetch("http://TOChangeLater/contact", {
         method: "POST",
         headears: { "conntent-type": "application/json" },
@@ -31,8 +34,20 @@ const Contact = () => {
         return Error("Failed to send message");
       }
       setFormData({ name: "", phone: "", email: "", message: "" });
+      setFormStatus({
+        success: true,
+        message: "Your messsage has been sent succesfully!",
+      });
+
+      setTimeout(() => {
+        setFormStatus({ success: null, message: "" });
+      }, 4000);
     } catch (error) {
-      return error;
+      setFormStatus({
+        success: false,
+        message: "Faild to send message. Please try again later",
+      });
+      // return error;
     }
   };
 
@@ -158,6 +173,26 @@ const Contact = () => {
               Send Message <FiSend className="text-xl" />
             </button>
           </motion.form>
+          {formStatus.message && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transtion={{ duration: 0.4 }}
+              className={`mt-6 max-w-2xl mx-auto px-6 py-4 rounded-xl text-center font-medium text-white shodow-md ${
+                formStatus.success ? "bg-green-500" : "bg-red-500"
+              }`}
+            >
+              {formStatus.success ? (
+                <>
+                  <FiCheckCircle className="text-xl" /> {formStatus.message}
+                </>
+              ) : (
+                <>
+                  <FiXCircle className="text-xl" /> {formStatus.message}
+                </>
+              )}
+            </motion.div>
+          )}
         </div>
       </section>
     </>

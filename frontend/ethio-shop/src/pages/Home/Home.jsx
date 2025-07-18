@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import img5 from "../../assets/images/img5.jpg";
 import logo from "../../assets/images/logo.png";
@@ -6,11 +5,38 @@ import { VscCheck } from "react-icons/vsc";
 import Contact from "../Contact/Contact";
 import Cart from "../Cart/Cart";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
+import { useEffect } from "react";
 
 const Home = () => {
+  const [userInfo, setUserInfo] = useState(null);
+
+  const navigate = useNavigate();
+
+  const getUserInfo = async () => {
+    try {
+      const response = await axiosInstance.get("/get-user");
+      if (response.data && response.data.user) {
+        setUserInfo(response.data.user);
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    return () => {};
+  }, []);
+
   return (
     <>
-      <Navbar />
+      <Navbar userInfo={userInfo} />
       {/* Hero */}
       <section id="home" className="relative w-full h-screen overflow-hidden">
         {/* Zooming Background Image */}

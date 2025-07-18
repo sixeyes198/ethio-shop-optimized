@@ -145,7 +145,7 @@ app.get("/get-user", authenticateToken, async (req, res) => {
   });
 });
 
-app.use("/contact", ContactRoute);
+app.use("/api/contact", ContactRoute);
 app.use("/api/payments", paymentsRoutes);
 app.use("/api/products", productRoutes);
 

@@ -24,11 +24,14 @@ const Contact = () => {
     e.preventDefault();
     try {
       // Change the fetch URL **
-      const response = await fetch("http://TOChangeLater/contact", {
-        method: "POST",
-        headears: { "conntent-type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://ethio-shop-b0zq.onrender.com/api/contact",
+        {
+          method: "POST",
+          headears: { "content-type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         return Error("Failed to send message");

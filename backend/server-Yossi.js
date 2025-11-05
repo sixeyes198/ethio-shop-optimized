@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://ethio-shop-b0zq.onrender.com",
+    origin: "*",
   })
 );
 
@@ -158,19 +158,29 @@ app.use("/api/products", productRoutes);
 
 app.use(express.static(path.join(__dirname, "../frontend/ethio-shop/dist")));
 
-
-
+// the Error could be here ?! Need to debug 
 
 app.get("/*", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../frontend/ethio-shop/dist", "index.html")
-  );
+  const indexPath = path.resolve(__dirname, "../frontend/ethio-shop", "dist", "index.html");
+  console.log("Resolved index.html path:", indexPath);
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error("Error sending index.html:", err);
+      res.status(500).send("Error loading frontend");
+    }
+  });
 });
 
-const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () => {
-  console.log(`Server is running ${PORT}`);
+// app.get("*", (req, res) => {
+  
+//   res.sendFile(
+//     path.resolve(__dirname, "../frontend/ethio-shop", "dist", "index.html")
+//   );
+// });
+
+app.listen(5000, () => {
+  console.log(`Server is running ${5000}`);
 });
 
 module.exports = app;

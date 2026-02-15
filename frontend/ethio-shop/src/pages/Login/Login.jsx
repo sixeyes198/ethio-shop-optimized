@@ -46,7 +46,7 @@ const Login = () => {
         if (role === "admin") {
           navigate("/admin");
         } else {
-          navigate("/");
+          navigate("/home");
         }
       } else {
         setError("Invalid login response. Please try again");

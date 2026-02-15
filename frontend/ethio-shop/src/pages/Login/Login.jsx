@@ -29,6 +29,8 @@ const Login = () => {
     setError("");
 
     //Login API Call
+    console.log("api base url:", axiosInstance.defaults.baseURL);
+
     try {
       const response = await axiosInstance.post("/login", {
         email: email,

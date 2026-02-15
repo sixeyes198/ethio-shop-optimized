@@ -40,7 +40,7 @@ mongoose
 
 
 // Create Account
-app.post("/Signup", async (req, res) => {
+app.post("/api/Signup", async (req, res) => {
   const { fullName, email, password, role } = req.body;
   if (!fullName) {
     return res
@@ -92,7 +92,7 @@ app.post("/Signup", async (req, res) => {
 });
 
 //Login
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   console.log("Login request body", req.body);
 
   const { email, password } = req.body;

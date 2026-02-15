@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
 import PasswordInput from "../../components/Input/PasswordInput";
-import img5 from "../../assets/images/img5.jpg"
+import img5 from "../../assets/images/img5.jpg";
+import axiosInstance from "../../utils/axiosInstance";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,19 +29,52 @@ const Login = () => {
     setError("");
 
     //Login API Call
+    try {
+      const response = await axiosInstance.post("/login", {
+        email: email,
+        password: password,
+      });
+
+      const { accessToken, role } = response.data;
+
+      if (accessToken && role) {
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("role", role);
+
+        if (role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        setError("Invalid login response. Please try again");
+      }
+    } catch (error) {
+      console.log("Login error:", error);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
   };
 
   return (
     <>
       <Navbar />
-    {/* Background Image with Dark Overlay */}
-    <div className="relative h-screen w-full">
+      {/* Background Image with Dark Overlay */}
+      <div className="relative h-screen w-full">
         <img
           src={img5}
           alt="women working in field"
           className="absolute inset-0 w-full h-full object-cover brightness-50"
         />
-        
+
         {/* Login Form */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-96 border rounded-lg bg-white px-7 py-10 shadow-lg">

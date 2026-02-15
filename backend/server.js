@@ -161,9 +161,9 @@ app.use(express.static(path.join(__dirname, "../frontend/ethio-shop/dist")));
 
 
 
-app.get("/*", (req, res) => {
+app.use( (req, res) => {
   res.sendFile(
-    path.join(__dirname, "../frontend/ethio-shop/dist", "index.html")
+    path.resolve(__dirname, "../frontend/ethio-shop/dist", "index.html")
   );
 });
 
